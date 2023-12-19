@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import morgan from 'morgan';
 import { Login, Register } from './Routes/Auth.js';
-import { addTask, updateTask } from './Routes/list.js';
+import { addTask, deleteTask, getTask, updateTask } from './Routes/list.js';
 
 
 const app = express();
@@ -21,6 +21,8 @@ app.get("/register",Register)
 app.post("/login",Login)
 app.post("/add-task",addTask)
 app.put("/update-task/:id",updateTask)
+app.delete("/delete-task/:id",deleteTask)
+app.get("/get-task/:id",getTask)
 
 
 

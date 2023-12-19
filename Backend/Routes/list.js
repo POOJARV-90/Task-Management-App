@@ -25,22 +25,69 @@ export const addTask = async (req, res) => {
   }
 };
 
+// export const updateTask = async (req, res) => {
+//   try {
+//     const { title, body, email } = req.body;
+//     const existingUser = await User.findOne({ email });
+//     // console.log(existingUser, "user");
+//     if (existingUser) {
+//       await Task.findByIdAndUpdate(req.params.id, { title, body });
+//       const message = "Task updated successfully";
+//       res.status(200).json({ message });
+//       // });
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// };
 
-export const updateTask = async(req , res) => {
-    try {
-        const { title, body, email } = req.body;
+
+export const updateTask = async (req, res) => {
+  try {
+    const { title, body, email } = req.body;
     const existingUser = await User.findOne({ email });
-    if(existingUser){
-        await Task.findByIdAndUpdate(req.params.id,{title , body})
-        Task.save().then(()=>{
-            res.status(200).json({message})
-        })
+    // console.log(existingUser, "user");
+    if (existingUser) {
+      const list =await Task.findByIdAndUpdate(req.params.id, { title, body });
+      list.save().then(()=>res.status(200).json({ message:"Task Updated" }))
+     
+      // });
     }
-        
-    } catch (error) {
-        console.error(error);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
-    }
+  }
+};
 
+export const deleteTask = async(req , res) =>{
+  try {
+    const { email } = req.body
+    const existingUser = await User.findOneAndUpdate(
+      { email },{$pull:{tasks:req.params.id}});
+    if(existingUser){
+      await Task.findByIdAndDelete(req.params.id).then(()=>
+      res.status(200).json({ message:"Task Deleted" })
+      )
+    }
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 }
 
+export const getTask = async(req , res) =>{
+ try {
+  const list = await Task.find({user:req.params.id}).sort({createdAt: -1})
+  if(list.length !== 0){
+   res.status(200).json({list:list})
+ }else{
+   res.status(200).json({message:"No task found"})
+ }
+ } catch (error) {
+  console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+ }
+
+}
