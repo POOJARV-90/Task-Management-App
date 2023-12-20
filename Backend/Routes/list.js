@@ -60,7 +60,7 @@ export const updateTask = async (req, res) => {
   }
 };
 
-export const deleteTask = async(req , res) =>{
+export const deleteTask = async(req , res) => {
   try {
     const { email } = req.body
     const existingUser = await User.findOneAndUpdate(
@@ -91,3 +91,6 @@ export const getTask = async(req , res) =>{
  }
 
 }
+
+
+
