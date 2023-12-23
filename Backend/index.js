@@ -17,7 +17,7 @@ app.get("/",(req, res)=>{
     res.send("Backend Working .......")
 })
 
-app.get("/register",Register)
+app.post("/register",Register)
 app.post("/login",Login)
 app.post("/add-task",addTask)
 app.put("/update-task/:id",updateTask)

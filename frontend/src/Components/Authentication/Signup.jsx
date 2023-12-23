@@ -1,31 +1,97 @@
-import React from 'react';
-import './Signup.css'; 
+import React, { useState } from "react";
+import "./Signup.css";
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {useNavigate} from 'react-router-dom'
 
 const Signup = () => {
+  const router = useNavigate()
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+    name: ""
+  });
+
+  const change = (e) => {
+    const { name, value } = e.target;
+    setInputs({ ...inputs, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://localhost:9000/register", inputs);
+      console.log(response.data);
+
+      if (response.data.success) {
+        // Registration successful, handle accordingly
+        toast.success("User registered successfully");
+        router("/Login")
+
+      } else {
+        // Registration failed, display error message
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    setInputs({
+      email: "",
+      password: "",
+      name: ""
+    });
+  };
+
   return (
-    <div className='signup'>
-      <div className='container'>
-        <div className='row'>
-        <div className=' login-image col-lg-4 height d-flex justify-content-center align-items-center'>
-            <h1 className='text-center heading'>
+    <div className="signup">
+      <ToastContainer/>
+      <div className="container">
+        <div className="row">
+          <div className="login-image col-lg-4 height d-flex justify-content-center align-items-center">
+            <h1 className="text-center heading">
               Sign <br />
               Up
             </h1>
           </div>
-          <div className='col-lg-8 height d-flex justify-content-center align-items-center'>
-           
-            <div className='d-flex flex-column w-100 p-5'>
-              <input type="email"  className='input p-2 my-2' name='email' placeholder='Enter Your Email'/>
-              <input type="username"  className='input p-2 my-2' name='username' placeholder='Enter Your Username'/>
-              <input type="password"  className='input p-2 my-2' name='password' placeholder='Enter Your Password'/>
-              <button className='signup-button'>Sign Up</button>
+          <div className="col-lg-8 height d-flex justify-content-center align-items-center">
+            <div className="d-flex flex-column w-100 p-5">
+              <input
+                type="email"
+                className="input p-2 my-2"
+                name="email"
+                placeholder="Enter Your Email"
+                onChange={change}
+                value={inputs.email}
+              />
+              <input
+                type="text"
+                className="input p-2 my-2"
+                name="name"
+                placeholder="Enter Your Username"
+                onChange={change}
+                value={inputs.name}
+              />
+              <input
+                type="password"
+                className="input p-2 my-2"
+                name="password"
+                placeholder="Enter Your Password"
+                onChange={change}
+                value={inputs.password}
+              />
+              <button className="signup-button" onClick={handleSubmit}>
+                Sign Up
+              </button>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Signup;
+

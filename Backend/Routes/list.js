@@ -3,9 +3,9 @@ import User from "../model/user.js";
 
 export const addTask = async (req, res) => {
   try {
-    const { title, body, email } = req.body;
-    const existingUser = await User.findOne({ email });
-    // console.log(existingUser);
+    const { title, body, id } = req.body;
+    const existingUser = await User.findById(id);
+    console.log(existingUser);
 
     if (existingUser) {
       const newTask = new Task({ title, body, user: existingUser });
@@ -62,9 +62,9 @@ export const updateTask = async (req, res) => {
 
 export const deleteTask = async(req , res) => {
   try {
-    const { email } = req.body
-    const existingUser = await User.findOneAndUpdate(
-      { email },{$pull:{tasks:req.params.id}});
+    const { id } = req.body
+    const existingUser = await User.findByIdAndUpdate(
+      id ,{$pull:{tasks:req.params.id}});
     if(existingUser){
       await Task.findByIdAndDelete(req.params.id).then(()=>
       res.status(200).json({ message:"Task Deleted" })

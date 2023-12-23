@@ -3,9 +3,19 @@ import '../Navabar/Navbar.css'
 import { VscAccount } from "react-icons/vsc";
 import { GrBook } from "react-icons/gr";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { authAction } from '../../store';
 
 const Navbar = () => {
+  const isLoggedIn = useSelector((state) => state.isLoggedIn)
+  const dispatch = useDispatch()
+  // console.log(isLoggedIn,"here  ");
   const router = useNavigate()
+  const logout = () =>{
+    sessionStorage.clear("id")
+    dispatch(authAction.logout())
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg custom-light-pink mb-3">
@@ -37,11 +47,12 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" onClick={()=>router("/About-us")}>
+                <a className="nav-link active" aria-current="page" onClick={()=>router("/todo")}>
                   Todo
                 </a>
               </li>
-              
+              {!isLoggedIn &&(
+              <>
               <li className="nav-item nav-button mx-2">
                 <a className="nav-link active" aria-current="page" onClick={()=>router("/SignUp")}>
                   Sign Up
@@ -53,12 +64,17 @@ const Navbar = () => {
                   Login
                 </a>
               </li>
-              <li className="nav-item nav-button mx-2">
+              </>
+               )}
+              {isLoggedIn && <>
+                <li className="nav-item nav-button mx-2" onClick={logout}>
                 <a className="nav-link active" aria-current="page" href="#">
                   Logout
                 </a>
               </li>
 
+              </>}
+              
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="#">
                 <VscAccount />
