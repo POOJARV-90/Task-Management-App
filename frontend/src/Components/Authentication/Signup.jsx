@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Signup.css";
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useNavigate} from 'react-router-dom'
+import api from "../Api.config";
 
 const Signup = () => {
   const router = useNavigate()
@@ -22,7 +22,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${window.location.origin}/register`, inputs);
+      const response = await api.post("/register", inputs);
       console.log(response.data);
 
       if (response.data.success) {

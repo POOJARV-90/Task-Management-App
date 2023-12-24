@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import "../Todo/Todo.css";
 import { useState } from "react";
-import axios from "axios";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../Api.config";
 
 const Update = ({ closeUpdate, update }) => {
   const [inputs, setInputs] = useState({
@@ -27,8 +28,8 @@ const Update = ({ closeUpdate, update }) => {
    
     closeUpdate("none");
 
-    await axios
-      .put(`${window.location.origin}/update-task/${update._id}`, inputs)
+    await api
+      .put(`/update-task/${update._id}`, inputs)
       .then((response) => {
         // console.log(response, "here is update response");
         toast.success(response.data.message)

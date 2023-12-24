@@ -4,7 +4,7 @@ import TodoCards from "./TodoCards";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Update from "./Update";
-import axios from "axios";
+import api from "../Api.config";
 let toUpdateArray = []
 
 
@@ -39,7 +39,7 @@ const Todo = () => {
       } else {
         const storedId = sessionStorage.getItem("id");
         if (storedId) {
-          const response = await axios.post(`${window.location.origin}/add-task`, {
+          const response = await api.post("/add-task", {
             title: inputs.title,
             body: inputs.body,
             id: storedId,
@@ -63,8 +63,8 @@ const Todo = () => {
 
   const del = async(Cardid) => {
 
-    await axios
-    .delete(`${window.location.origin}/delete-task/${Cardid}`,{data:{id:id} }).then((response)=>{
+    await api
+    .delete(`/delete-task/${Cardid}`,{data:{id:id} }).then((response)=>{
        
       console.log(response.data);
     })
@@ -76,8 +76,8 @@ const Todo = () => {
     // const id = sessionStorage.getItem("id"); 
     if(id){
       const fetch = async () => {
-        await axios
-          .get(`${window.location.origin}/get-task/${id}`)
+        await api
+          .get(`/get-task/${id}`)
           .then((response) => {
             setArray(response.data.list);
           });

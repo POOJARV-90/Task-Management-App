@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './Signup.css'; 
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../store';
+import api from '../Api.config';
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${window.location.origin}/login`, inputs);
+      const response = await api.post("/login", inputs);
       // console.log(response.data.user._id);
       sessionStorage.setItem("id",response.data.user._id)
       dispatch(authAction.login())
