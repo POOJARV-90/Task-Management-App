@@ -18,7 +18,7 @@ const Navbar = () => {
   }
   return (
     <div>
-      <nav className="navbar navbar-expand-lg custom-light-pink mb-3">
+      <nav className="navbar navbar-expand-lg custom-light-pink">
         <div className="container">
           <a className="navbar-brand" href="#">
             <b>LOGO <GrBook /> </b> 
@@ -53,13 +53,13 @@ const Navbar = () => {
               </li>
               {!isLoggedIn &&(
               <>
-              <li className="nav-item nav-button mx-2">
+              <li className="nav-item nav-button mx-lg-2 ">
                 <a className="nav-link active" aria-current="page" onClick={()=>router("/SignUp")}>
                   Sign Up
                 </a>
               </li>
               
-              <li className="nav-item nav-button mx-2">
+              <li className="nav-item nav-button mx-lg-2 my-lg-0  my-2 ">
                 <a className="nav-link active" aria-current="page" onClick={()=>router("/Login")}>
                   Login
                 </a>
@@ -67,7 +67,7 @@ const Navbar = () => {
               </>
                )}
               {isLoggedIn && <>
-                <li className="nav-item nav-button mx-2" onClick={logout}>
+                <li className="nav-item nav-button mx-lg-2" onClick={logout}>
                 <a className="nav-link active" aria-current="page" href="#">
                   Logout
                 </a>
@@ -75,11 +75,7 @@ const Navbar = () => {
 
               </>}
               
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                <VscAccount />
-                </a>
-              </li>
+              
               
               
             </ul>

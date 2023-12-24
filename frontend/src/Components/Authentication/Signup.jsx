@@ -22,7 +22,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:9000/register", inputs);
+      const response = await axios.post(`${window.location.origin}/register`, inputs);
       console.log(response.data);
 
       if (response.data.success) {
@@ -50,8 +50,8 @@ const Signup = () => {
       <ToastContainer/>
       <div className="container">
         <div className="row">
-          <div className="login-image col-lg-4 height d-flex justify-content-center align-items-center">
-            <h1 className="text-center heading">
+          <div className="login-image d-none d-lg-block col-lg-4 height d-lg-flex justify-content-center align-items-center heading ">
+            <h1 className="text-center ">
               Sign <br />
               Up
             </h1>

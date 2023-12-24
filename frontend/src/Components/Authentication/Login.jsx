@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:9000/login", inputs);
+      const response = await axios.post(`${window.location.origin}/login`, inputs);
       // console.log(response.data.user._id);
       sessionStorage.setItem("id",response.data.user._id)
       dispatch(authAction.login())
@@ -56,7 +56,7 @@ const Login = () => {
       <ToastContainer />
       <div className='container'>
         <div className='row'>
-          <div className='login-image col-lg-4 height d-flex justify-content-center align-items-center'>
+          <div className='d-none d-lg-block login-image col-lg-4 height d-lg-flex justify-content-center align-items-center '>
             <h1 className='text-center heading'>
               Log <br />
               In

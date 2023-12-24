@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Update from "./Update";
 import axios from "axios";
+let toUpdateArray = []
 
 
 const Todo = () => {
@@ -22,6 +23,9 @@ const Todo = () => {
   const Show = () => {
     document.getElementById("text-area").style.display = "block";
   };
+  const update = (value) => {
+    toUpdateArray= Array[value];
+  }
 
   const change = (event) => {
     const { name, value } = event.target;
@@ -35,7 +39,7 @@ const Todo = () => {
       } else {
         const storedId = sessionStorage.getItem("id");
         if (storedId) {
-          const response = await axios.post("http://localhost:9000/add-task", {
+          const response = await axios.post(`${window.location.origin}/add-task`, {
             title: inputs.title,
             body: inputs.body,
             id: storedId,
@@ -60,7 +64,7 @@ const Todo = () => {
   const del = async(Cardid) => {
 
     await axios
-    .delete(`http://localhost:9000/delete-task/${Cardid}`,{data:{id:id} }).then((response)=>{
+    .delete(`${window.location.origin}/delete-task/${Cardid}`,{data:{id:id} }).then((response)=>{
        
       console.log(response.data);
     })
@@ -73,7 +77,7 @@ const Todo = () => {
     if(id){
       const fetch = async () => {
         await axios
-          .get(`http://localhost:9000/get-task/${id}`)
+          .get(`${window.location.origin}/get-task/${id}`)
           .then((response) => {
             setArray(response.data.list);
           });
@@ -86,8 +90,8 @@ const Todo = () => {
   return (
     <div className="todo">
       <ToastContainer />
-      <div className="todo-main container d-flex justify-content-center align-items-center my-4 flex-column">
-        <div className="d-flex flex-column todo-inputs-div w-50">
+      <div className="todo-main container d-flex justify-content-center align-items-center flex-column">
+        <div className="d-flex flex-column todo-inputs-div w-100 my-4">
           <input
             type="text"
             placeholder="Title"
@@ -107,8 +111,8 @@ const Todo = () => {
             name="body"
           />
         </div>
-        <div className="w-50 d-flex justify-content-end px-2 py-1">
-          <button onClick={submit} className="home-button">
+        <div className="w-lg-50 w-100 d-flex justify-content-end m-3">
+          <button onClick={submit} className="home-button px-2 py-1">
             ADD
           </button>
         </div>
@@ -119,13 +123,15 @@ const Todo = () => {
           <div className="row">
             {Array &&
               Array.map((item, index) => (
-                <div className="col-lg-3 col-10 mx-5 my-2" key={index}>
+                <div className="col-lg-3 col-11 mx-lg-5 mx-3 my-2" key={index}>
                   <TodoCards
                     title={item.title}
                     body={item.body}
                     id={item._id}
                     delId={del}
                     display={dis}
+                    upadetedId={index}
+                    tobeUpdate={update}
                   />
                 </div>
               ))}
@@ -133,7 +139,7 @@ const Todo = () => {
         </div>
         <div className="todo-update" id="todo-update">
           <div className="container update" >
-            <Update display={dis} closeUpdate={disclose}/>
+            <Update display={dis} closeUpdate={disclose} update={toUpdateArray}/>
           </div>
         </div>
       </div>

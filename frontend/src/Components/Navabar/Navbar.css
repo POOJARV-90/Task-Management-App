@@ -1,6 +1,13 @@
-
+.navbar{
+    position: fixed;
+    width: 100%;
+    box-shadow: rgba(163, 140, 160, 0.35) 0px 5px 15px;
+    top: 0;
+    z-index: 1000; /* Ensure the navbar appears above other elements */
+}
 .custom-light-pink{
     background-color: rgb(197, 173, 177);
+   
     
 }
 

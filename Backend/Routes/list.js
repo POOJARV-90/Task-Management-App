@@ -45,15 +45,15 @@ export const addTask = async (req, res) => {
 
 export const updateTask = async (req, res) => {
   try {
-    const { title, body, email } = req.body;
-    const existingUser = await User.findOne({ email });
+    const { title, body } = req.body;
+    
     // console.log(existingUser, "user");
-    if (existingUser) {
+    
       const list =await Task.findByIdAndUpdate(req.params.id, { title, body });
       list.save().then(()=>res.status(200).json({ message:"Task Updated" }))
      
       // });
-    }
+   
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
