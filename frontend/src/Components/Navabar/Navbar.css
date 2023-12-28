@@ -5,6 +5,9 @@
     top: 0;
     z-index: 1000; /* Ensure the navbar appears above other elements */
 }
+.navbar>div{
+    cursor: pointer;
+}
 .custom-light-pink{
     background-color: rgb(197, 173, 177);
    
