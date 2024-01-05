@@ -9,12 +9,14 @@ import { authAction } from '../../store';
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => state.isLoggedIn)
+
   const dispatch = useDispatch()
   // console.log(isLoggedIn,"here  ");
   const router = useNavigate()
   const logout = () =>{
     sessionStorage.clear("id")
     dispatch(authAction.logout())
+    router("/Login")
   }
   return (
     <div>
