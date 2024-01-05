@@ -51,7 +51,7 @@ const Todo = () => {
         } else {
           setArray([...Array, inputs]);
           setInputs({ title: "", body: "" });
-          toast.error("Opps something wents wrong");
+          toast.error("Task is added but will not save please login first");
         }
       }
     } catch (error) {
