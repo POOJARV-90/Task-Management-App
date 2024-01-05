@@ -1,8 +1,5 @@
-
-
 # Task Management App
-
-
+https://github.com/POOJARV-90/Task-Management-App/assets/132448302/7e406aa8-0e11-44b3-b5cb-9a1b6078ed0c
 
 A task management application built using Bootstrap for the front-end, Node.js Express for the backend, and MongoDB for data storage. The front-end utilizes
 Redux for state management, React for the user interface, and Axios for making API requests.
