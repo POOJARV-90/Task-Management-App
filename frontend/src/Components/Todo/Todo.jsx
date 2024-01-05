@@ -45,9 +45,7 @@ const Todo = () => {
             id: storedId,
           });
          
-          console.log(response); // Log the response here
-          // You may want to check the response and handle accordingly
-
+          // console.log(response); /
           setInputs({ title: "", body: "" });
           toast.success("Task added successfully");
         } else {
@@ -66,14 +64,14 @@ const Todo = () => {
     await api
     .delete(`/delete-task/${Cardid}`,{data:{id:id} }).then((response)=>{
        
-      console.log(response.data);
+      toast(response.data.message);
     })
     
   };
 
   
   useEffect(() => {
-    // const id = sessionStorage.getItem("id"); 
+    
     if(id){
       const fetch = async () => {
         await api
